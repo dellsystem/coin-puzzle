@@ -13,6 +13,10 @@ class PuzzleGrid:
         self.moves = []
         self.moves_per_turn = [0] * self.grid_size
 
+    def get_max_moves(self):
+        # Maximum number of moves per turn
+        return max(self.moves_per_turn)
+
     def get_num_moves(self):
         return (self.n * self.m) + self.n + self.m
 

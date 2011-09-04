@@ -128,5 +128,17 @@ class TestPuzzleGrid(unittest.TestCase):
             grid.play_game()
             self.assertEqual(grid.moves_per_turn, correct[i])
 
+    def test_max_moves(self):
+        correct = [
+            4,
+            4,
+            4
+        ]
+
+        for i in xrange(len(self.grids)):
+            grid = self.grids[i]
+            grid.play_game()
+            self.assertEqual(grid.get_max_moves(), correct[i])
+
 if __name__ == '__main__':
     unittest.main()
