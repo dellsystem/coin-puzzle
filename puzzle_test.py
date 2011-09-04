@@ -17,7 +17,7 @@ class TestPuzzleGrid(unittest.TestCase):
         ]
 
         for i in xrange(len(self.grids)):
-            self.assertEqual(self.grids[i].grid, correct[i])
+            self.assertEqual(self.grids[i].initial_grid, correct[i])
 
     def test_puzzle_solving(self):
         correct = [
@@ -28,7 +28,6 @@ class TestPuzzleGrid(unittest.TestCase):
 
         for i in xrange(len(self.grids)):
             grid = self.grids[i]
-            grid.play_game()
             self.assertEqual(grid.grid, correct[i])
 
     def test_moves(self):
@@ -113,7 +112,6 @@ class TestPuzzleGrid(unittest.TestCase):
 
         for i in xrange(len(self.grids)):
             grid = self.grids[i]
-            grid.play_game()
             self.assertEqual(grid.moves, correct[i])
 
     def test_moves_per_turn(self):
@@ -125,7 +123,6 @@ class TestPuzzleGrid(unittest.TestCase):
 
         for i in xrange(len(self.grids)):
             grid = self.grids[i]
-            grid.play_game()
             self.assertEqual(grid.moves_per_turn, correct[i])
 
     def test_max_moves(self):
@@ -137,7 +134,6 @@ class TestPuzzleGrid(unittest.TestCase):
 
         for i in xrange(len(self.grids)):
             grid = self.grids[i]
-            grid.play_game()
             self.assertEqual(grid.get_max_moves(), correct[i])
 
 if __name__ == '__main__':

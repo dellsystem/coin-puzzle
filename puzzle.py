@@ -9,9 +9,13 @@ class PuzzleGrid:
         self.grid_size = self.m + self.n + 1
         # Quarters on the left, pennies on the right
         self.grid = [QUARTER] * self.n + [EMPTY] + [PENNY] * self.m
+        self.initial_grid = list(self.grid)
         self.empty_index = self.n
         self.moves = []
         self.moves_per_turn = [0] * self.grid_size
+
+        # Now solve itself
+        self.__solve()
 
     def get_max_moves(self):
         # Maximum number of moves per turn
@@ -118,7 +122,7 @@ class PuzzleGrid:
                 print " ",
         print 
 
-    def play_game(self):
+    def __solve(self):
         coin = QUARTER
         for i in xrange(self.grid_size):
             self.turn_number = i
@@ -129,7 +133,6 @@ class PuzzleGrid:
     def print_analysis(self):
         print "%d vs %d, %d starts first:" % (self.n, self.m, self.n)
         self.print_grid()
-        self.play_game()
         print "Afterwards, looks like:"
         self.print_grid()
         print "Moves per turn:"
