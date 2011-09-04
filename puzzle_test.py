@@ -136,5 +136,24 @@ class TestPuzzleGrid(unittest.TestCase):
             grid = self.grids[i]
             self.assertEqual(grid.get_max_moves(), correct[i])
 
+    def test_max_move_theories(self):
+        for i in xrange(1, 12):
+            for j in xrange(1, 12):
+                grid = PuzzleGrid(i, j)
+                real_max = grid.get_max_moves()
+                n = min(i, j)
+                m = max(i, j)
+                diff = abs(n - m)
+                if diff > 2:
+                    expected_max = n + 2
+                elif diff == 2:
+                    if i < j and i % 2 == 0 or i > j and i % 2 > 0:
+                        expected_max = m
+                    else:
+                        expected_max = m - 1
+                else:
+                    expected_max = m
+                self.assertEqual(real_max, expected_max)
+
 if __name__ == '__main__':
     unittest.main()
