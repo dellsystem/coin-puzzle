@@ -122,58 +122,11 @@ class PuzzleGrid:
             self.__move_coin(coin)
             coin = -coin
 
-    def play(self):
-        whose_turn = QUARTER
-        for i in xrange(self.grid_size):
-            # First try to jump to the forward-most one
-            coin_index = self.grid_size - 1 - self.grid[::-1].index(QUARTER) if whose_turn == QUARTER else self.grid.index(PENNY)
-            # If we can jump it, do so
-            if self.__jump(coin_index):
-                pass
-            elif self.__slide(coin_index) or False:
-                # Otherwise, try to slide it, and switch turns in any case
-                whose_turn = -whose_turn
-
-
-
-    def get_history(self):
-        # Play the game
-        empty_index = self.n
-        whose_turn = QUARTER
-        # the number of turns is equal to the size of the grid
-        for i in xrange(self.get_num_moves()): 
-            # Fill the empty one with the type of coin whose turn it is
-            self.grid[empty_index] = whose_turn
-
-            # Check if that was a jump or a slide
-            # If the one next to the empty one has the same type, it's a slide
-            adjacent_cell = self.grid[empty_index + whose_turn]
-            if adjacent_cell == whose_turn:
-                # Make that one the empty cell
-                self.grid[empty_index + whose_turn] = EMPTY
-                empty_index = empty_index + whose_turn
-                # Let the other player go UNLESS THE OTHER PLAYER CANNOT
-                if whose_turn == QUARTER:
-                    # If there are quarters to left of empty index, change
-                    if QUARTER in self.grid[:empty_index]:
-                        whose_turn = -whose_turn
-                else:
-                    if PENNY in self.grid[empty_index+1:]:
-                        whose_turn = -whose_turn
-            else:
-                # Wasn't a slide, must have been a jump
-                self.grid[empty_index + whose_turn * 2] = EMPTY
-                # Keep going UNLESS it's the last coin
-                if whose_turn == QUARTER:
-                    # If everything left of the empty index is not a quarter
-                    if not QUARTER in self.grid[:empty_index]:
-                        whose_turn = PENNY
-                else:
-                    # If everything right of the empty index is a quarter
-                    if not PENNY in self.grid[empty_index+1:]:
-                        whose_turn = QUARTER
-                empty_index = empty_index + whose_turn * 2
-
-    def __str__(self):
-        string = '|'.join(['Q'] * self.n) + '| |' + '|'.join(['P'] * self.m)
-        return string
+    def print_analysis(self):
+        print "%d vs %d, %d starts first:" % (self.n, self.m, self.n)
+        self.print_grid()
+        self.play_game()
+        print "Afterwards, looks like:"
+        self.print_grid()
+        print "Moves per turn:"
+        print self.moves_per_turn
